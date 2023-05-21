@@ -16,6 +16,7 @@ export class SocketConfig {
   startSocket() {
     this.io.on("connection", (client) => {
       console.log("New Connection!");
+      console.log(client.handshake.query.name);
 
       client.on("disconnect", () => {
         console.log("User disconnected!");
