@@ -1,21 +1,32 @@
 import express from "express";
 import http from "http";
-import { Server } from "socket.io";
+import mongoose from "mongoose";
+import passport from "passport";
+import * as dotenv from "dotenv";
 import cors from "cors";
-import { SocketConfig } from "./sockets/socket";
-import db from "./utils/db";
-import UserRoute from "./routes/UserRoute";
+dotenv.config();
+
+import { initializeDatabase } from "./config/database";
+import passportConfig from "./config/passport";
+import { initializeSocket } from "./config/socket";
+
+import authRoutes from "./routes/auth";
+import userRoutes from "./routes/user";
+
+initializeDatabase();
 
 const app = express();
+const server = http.createServer(app);
 app.use(cors());
 app.use(express.json());
-const server = http.createServer(app);
-const socket = new SocketConfig(new Server(server));
-socket.startSocket();
-db.connect();
+app.use(passport.initialize());
+passportConfig(passport);
 
-app.use("/api/user", UserRoute);
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 
-server.listen(3000, () => {
-  console.log("Rodando na por 3000");
+initializeSocket(server);
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });

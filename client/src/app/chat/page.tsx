@@ -9,8 +9,6 @@ export default function Chat() {
   const [status, setStatus] = useState<boolean>(false);
   const [connected, setConnected] = useState<string[]>([]);
   const [chat, setChat] = useState<React.ReactNode | undefined>();
-  const [name, setName] = useState<string>("");
-  if (!name) setName(`${prompt("Please enter your name")}`);
 
   useEffect(() => {
     initSocket();
@@ -31,15 +29,11 @@ export default function Chat() {
       setConnected(conections);
     });
   }
-  function sendMessage(to: string, message: string) {
-    socket.emit("direct", { id: "....", to, message });
-  }
 
   return (
     <div className="flex h-full">
       <div className="border border-white w-1/4 flex flex-col p-2 overflow-y-scroll">
         <div className="text-green-400 border-b">
-          <div>{name}</div>
           Status: {status === true ? "Conectado" : "Desconectado"}
         </div>
         <div className="p-3 pt-0">
@@ -51,8 +45,7 @@ export default function Chat() {
                 <div
                   className="mt-2 border-b hover:border-green-400"
                   onClick={(e) => {
-                    sendMessage(el, "oi");
-                    setChat(<PrivateChat name={el} />);
+                    setChat(<PrivateChat name={el} key={el} socket={socket} />);
                   }}
                   key={i}
                 >
