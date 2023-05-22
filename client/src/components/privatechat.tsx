@@ -33,9 +33,9 @@ export default function PrivateChat({
 
   function sendMessage() {
     setMessages([...messages, input_value]);
-    setInputValue("");
+    socket.emit("message", { from: "Felipe", to: name, message: input_value });
     setMessages([...messages, <Bubble message={input_value} type="send" key={input_value} />]);
-    socket.emit("direct", {});
+    setInputValue("");
   }
   return (
     <div className="h-[95%] w-4/5 flex flex-col">

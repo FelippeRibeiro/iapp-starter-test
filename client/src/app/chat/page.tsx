@@ -15,7 +15,7 @@ export default function Chat() {
   }, []);
 
   async function initSocket() {
-    socket = io("http://localhost:3000", {
+    socket = io("http://localhost:3000?name=FelipeReact", {
       transports: ["websocket"],
     });
     socket.on("connect", () => {
