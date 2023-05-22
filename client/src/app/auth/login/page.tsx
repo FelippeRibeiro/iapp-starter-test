@@ -1,13 +1,15 @@
 "use client";
+import { useAuth } from "@/context/Auth";
 import { useState } from "react";
+
 export default function Login() {
-  const [cpf, setCpf] = useState("");
+  const [document, setDocument] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
   function handleLogin() {
-    const Cpf: string = cpf;
-    const Password: string = password;
-    setCpf("");
+    login({ document, password });
+    setDocument("");
     setPassword("");
   }
 
@@ -20,9 +22,9 @@ export default function Login() {
           type="text"
           placeholder="Insira seu CPF"
           className="input"
-          value={cpf}
+          value={document}
           onChange={(e) => {
-            setCpf(e.target.value.replaceAll(/[^0-9]/g, ""));
+            setDocument(e.target.value.replaceAll(/[^0-9]/g, ""));
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {

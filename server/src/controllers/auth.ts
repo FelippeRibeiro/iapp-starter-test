@@ -22,8 +22,9 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "8255", {
       expiresIn: "1h",
     });
-    res.json({ token });
+    res.json({ token, user: { name: user.name } });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -37,7 +38,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "8255", {
       expiresIn: "1h",
     });
-    res.json({ token });
+    res.json({ token, user: { name: user.name } });
   } catch (error) {
     console.log(error);
     next(error);

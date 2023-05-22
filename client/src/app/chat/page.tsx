@@ -2,9 +2,10 @@
 import io, { Socket } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
-import Image from "next/image";
 import PrivateChat from "@/components/privatechat";
+import NotFound from "@/components/notFound";
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+
 export default function Chat() {
   const [status, setStatus] = useState<boolean>(false);
   const [connected, setConnected] = useState<string[]>([]);
@@ -15,7 +16,7 @@ export default function Chat() {
   }, []);
 
   async function initSocket() {
-    socket = io("http://localhost:3000?name=FelipeReact", {
+    socket = io(`http://localhost:3000?name=FelipeReact`, {
       transports: ["websocket"],
     });
     socket.on("connect", () => {
@@ -24,9 +25,9 @@ export default function Chat() {
     socket.on("disconnect", () => {
       setStatus(false);
     });
-    socket.on("refreshConnection", (conections) => {
-      console.log(conections);
-      setConnected(conections);
+    socket.on("refreshConnection", (connections) => {
+      console.log(connections);
+      setConnected(connections);
     });
   }
 
@@ -56,12 +57,7 @@ export default function Chat() {
         </div>
       </div>
       <div className="border border-white w-full h-full flex flex-col justify-center items-center">
-        {chat || (
-          <div className="flex flex-col items-center">
-            <Image width={1000} height={1000} src="/notFound.svg" alt="not found image"></Image>
-            <h1>Clique na aba lateral esquerda para abrir uma conversa.</h1>
-          </div>
-        )}
+        {chat || <NotFound height={1000} width={1000} />}
       </div>
     </div>
   );

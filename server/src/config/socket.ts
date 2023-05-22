@@ -2,6 +2,8 @@ import { Socket, Server as SocketIOServer } from "socket.io";
 import http from "http";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
+import { User } from "../models/User";
+
 type IConnections = {
   socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
   messags: string[];
@@ -28,7 +30,7 @@ export function initializeSocket(server: http.Server) {
         `Enivando mensagem direta de: ${message.from} para ${message.to} mensagem: ${message.message}`
       );
       connections.forEach((c) => {
-        if (c.socket.handshake.query.name || c.socket.id === message.to) {
+        if ((c.socket.handshake.query.name || c.socket.id) === message.to) {
           c.socket.emit("direct", { from: message.from, message: message.message });
         }
       });
