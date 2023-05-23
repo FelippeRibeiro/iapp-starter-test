@@ -1,6 +1,8 @@
 "use client";
 import { useAuth } from "@/context/Auth";
+import Link from "next/link";
 import { useState } from "react";
+import Cookie from "js-cookie";
 
 export default function Login() {
   const [document, setDocument] = useState("");
@@ -48,9 +50,14 @@ export default function Login() {
           }}
         />
         <div>
-          <button className="btn cursor-pointer" onClick={handleLogin}>
+          <button className="btn cursor-pointer w-80" onClick={handleLogin}>
             Login
           </button>
+          <div className="mt-5">
+            <Link href={"/auth/signup"} className="hover:border-b border-white">
+              Não possui uma conta?
+            </Link>
+          </div>
         </div>
       </div>
     </div>

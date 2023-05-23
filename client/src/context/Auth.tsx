@@ -4,11 +4,13 @@ import { IUser, ICreateUser, IUserLogin } from "@/types/UserTypes";
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { usePathname, redirect, useRouter } from "next/navigation";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 interface IUserContext {
   user: IUser;
   login: (user: IUserLogin) => Promise<void>;
   signup: (user: ICreateUser) => Promise<void>;
+  logout: () => void;
 }
 
 const AuthContext = createContext({} as IUserContext);
@@ -25,6 +27,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       redirect("/auth/login");
     }
   });
+
+  if (user?.name === "") {
+    const cookie = Cookies.get("token");
+    if (cookie) {
+      const tokenUsername: string | JwtPayload | null = jwt.decode(cookie);
+      if (tokenUsername) setUser({ name: (tokenUsername as JwtPayload).name });
+    }
+  }
 
   const login = async (user: IUserLogin) => {
     const response = await fetch("http://localhost:3000/api/auth/login", {
@@ -54,10 +64,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push("/chat");
   };
 
+  const logout = () => {
+    setUser({ name: "" });
+    Cookies.remove("token");
+    router.push("/auth/login");
+  };
+
   const values = {
     user,
     login,
     signup,
+    logout,
   };
 
   return <AuthContext.Provider value={values}> {children}</AuthContext.Provider>;

@@ -8,9 +8,11 @@ const messageHandles: any[] = [];
 export default function PrivateChat({
   name,
   socket,
+  me,
 }: {
   name: string;
   socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+  me: string;
 }) {
   const [input_value, setInputValue] = useState("");
   const [messages, setMessages] = useState<React.ReactNode[]>([]);
@@ -33,7 +35,7 @@ export default function PrivateChat({
 
   function sendMessage() {
     setMessages([...messages, input_value]);
-    socket.emit("message", { from: "Felipe", to: name, message: input_value });
+    socket.emit("message", { from: me, to: name, message: input_value });
     setMessages([...messages, <Bubble message={input_value} type="send" key={input_value} />]);
     setInputValue("");
   }

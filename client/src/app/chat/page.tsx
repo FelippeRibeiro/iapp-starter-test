@@ -2,21 +2,29 @@
 import io, { Socket } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
+
+//Components
 import PrivateChat from "@/components/privatechat";
 import NotFound from "@/components/notFound";
+
+import { useAuth } from "@/context/Auth";
+
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 export default function Chat() {
   const [status, setStatus] = useState<boolean>(false);
   const [connected, setConnected] = useState<string[]>([]);
   const [chat, setChat] = useState<React.ReactNode | undefined>();
+  const { user } = useAuth();
 
   useEffect(() => {
-    initSocket();
-  }, []);
+    if (user.name.length > 0) {
+      initSocket(user.name);
+    }
+  }, [user.name]);
 
-  async function initSocket() {
-    socket = io(`http://localhost:3000?name=FelipeReact`, {
+  async function initSocket(name: string) {
+    socket = io(`http://localhost:3000?name=${name}`, {
       transports: ["websocket"],
     });
     socket.on("connect", () => {
@@ -42,17 +50,19 @@ export default function Chat() {
 
           {connected.length &&
             connected.map((el, i) => {
-              return (
-                <div
-                  className="mt-2 border-b hover:border-green-400"
-                  onClick={(e) => {
-                    setChat(<PrivateChat name={el} key={el} socket={socket} />);
-                  }}
-                  key={i}
-                >
-                  ° {el}
-                </div>
-              );
+              if (user.name != el) {
+                return (
+                  <div
+                    className="mt-2 border-b hover:border-green-400"
+                    onClick={(e) => {
+                      setChat(<PrivateChat name={el} key={el} me={user.name} socket={socket} />);
+                    }}
+                    key={i}
+                  >
+                    ° {el}
+                  </div>
+                );
+              }
             })}
         </div>
       </div>

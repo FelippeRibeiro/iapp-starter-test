@@ -21,7 +21,7 @@ export function initializeSocket(server: http.Server) {
       connections = connections.filter((c) => c.socket.id !== client.id);
       io.emit(
         "refreshConnection",
-        connections.map((c) => c.socket.id)
+        connections.map((c) => c.socket.handshake.query.name || c.socket.id)
       );
     });
 
