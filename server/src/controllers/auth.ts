@@ -19,7 +19,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
       password: hashedPassword,
     });
     await user.save();
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "8255", {
+    const token = jwt.sign({ _id: user._id, name: user.name }, process.env.JWT_SECRET || "8255", {
       expiresIn: "1h",
     });
     res.json({ token, user: { name: user.name } });
@@ -35,7 +35,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "8255", {
+    const token = jwt.sign({ _id: user._id, name: user.name }, process.env.JWT_SECRET || "8255", {
       expiresIn: "1h",
     });
     res.json({ token, user: { name: user.name } });
