@@ -1,8 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 export default function Bubble({ type, message }: { type: "send" | "recived"; message: string }) {
   return (
-    <div className={`chat chat-${type === "send" ? "end" : "start"}`}>
-      <div className="chat-bubble">{message}</div>
+    <div id={`${type === "send" ? "send" : "recived"}`}>
+      <cite>
+        <p className="text-gray-500">{type === "send" ? "You:" : "Other:"}</p>
+      </cite>
+      {message}
     </div>
   );
 }

@@ -20,3 +20,40 @@ body div::-webkit-scrollbar-thumb {
   background-color: rgb(56, 56, 68); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
+
+#send {
+  margin: 2px;
+  text-align: end;
+}
+
+#received {
+  margin: 2px;
+  text-align: start;
+}
+
+.msg {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.699);
+  margin: 15px;
+  font-size: large;
+  font-family: "Times New Roman", Times, serif;
+  background-color: rgba(255, 255, 255, 0.089);
+  border-radius: 10px;
+  animation-name: show;
+  animation-duration: 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+@keyframes show {
+  0% {
+    transform: scale(0.2);
+  }
+
+  50% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
