@@ -1,13 +1,21 @@
 "use client";
 import { useAuth } from "@/context/Auth";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [document, setDocument] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, valide } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    valide().then((status) => {
+      if (status) router.push("/chat");
+    });
+  });
 
   function handleLogin() {
     login({ document, password });

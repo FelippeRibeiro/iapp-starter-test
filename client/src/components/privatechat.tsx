@@ -71,7 +71,7 @@ export default function PrivateChat({
           />
         </div>
         <div className="col-span-1">
-          <button className="btn w-full" onClick={sendMessage}>
+          <button className="btn w-full font-black " onClick={sendMessage}>
             Enviar
           </button>
         </div>

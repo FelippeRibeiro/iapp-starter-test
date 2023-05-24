@@ -11,6 +11,7 @@ interface IUserContext {
   login: (user: IUserLogin) => Promise<void>;
   signup: (user: ICreateUser) => Promise<void>;
   logout: () => void;
+  valide: () => Promise<boolean>;
 }
 
 const AuthContext = createContext({} as IUserContext);
@@ -70,11 +71,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push("/auth/login");
   };
 
+  const valide = async () => {
+    const token = Cookies.get("token");
+    if (!token) return false;
+    const response = await fetch("http://localhost:3000/api/user/valide", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status == 200) return true;
+    else {
+      Cookies.remove("token");
+      return false;
+    }
+  };
+
   const values = {
     user,
     login,
     signup,
     logout,
+    valide,
   };
 
   return <AuthContext.Provider value={values}> {children}</AuthContext.Provider>;

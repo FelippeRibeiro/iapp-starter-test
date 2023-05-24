@@ -8,6 +8,7 @@ import PrivateChat from "@/components/privatechat";
 import NotFound from "@/components/notFound";
 
 import { useAuth } from "@/context/Auth";
+import { useRouter } from "next/navigation";
 
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
@@ -15,13 +16,17 @@ export default function Chat() {
   const [status, setStatus] = useState<boolean>(false);
   const [connected, setConnected] = useState<string[]>([]);
   const [chat, setChat] = useState<React.ReactNode | undefined>();
-  const { user } = useAuth();
+  const { user, logout, valide } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
+    valide().then((res) => {
+      if (!res) router.push("/auth/login");
+    });
     if (user.name.length > 0) {
       initSocket(user.name);
     }
-  }, [user.name]);
+  }, [user.name, valide, router]);
 
   async function initSocket(name: string) {
     socket = io(`http://localhost:3000?name=${name}`, {
@@ -43,7 +48,10 @@ export default function Chat() {
     <div className="flex h-full">
       <div className="border border-white w-1/4 flex flex-col p-2 overflow-y-scroll">
         <div className="text-green-400 border-b">
-          Status: {status === true ? "Conectado" : "Desconectado"}
+          Status: {status === true ? "Conectado" : "Desconectado"} <br />
+          <div className="btn btn-xs bg-red-600 mb-2 text-black" onClick={logout}>
+            Logout
+          </div>
         </div>
         <div className="p-3 pt-0">
           <h3 className="pb-2">Pessoas disponiveis:</h3>
