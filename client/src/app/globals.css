@@ -44,15 +44,36 @@ body div::-webkit-scrollbar-thumb {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
+.show {
+  animation-name: show;
+  animation-duration: 0.2s;
+}
+
 @keyframes show {
   0% {
+    transform: scale(0.1);
+  }
+  30% {
     transform: scale(0.2);
   }
-
+  40% {
+    transform: scale(0.3);
+  }
   50% {
+    transform: scale(0.4);
+  }
+  60% {
     transform: scale(0.5);
   }
-
+  70% {
+    transform: scale(0.7);
+  }
+  80% {
+    transform: scale(0.8);
+  }
+  90% {
+    transform: scale(0.9);
+  }
   100% {
     transform: scale(1);
   }

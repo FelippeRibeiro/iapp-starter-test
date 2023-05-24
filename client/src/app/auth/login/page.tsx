@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [document, setDocument] = useState("");
   const [password, setPassword] = useState("");
+  const [wrongPassword, setWrongPassword] = useState(false);
   const { login, valide } = useAuth();
   const router = useRouter();
 
@@ -17,8 +18,11 @@ export default function Login() {
     });
   });
 
-  function handleLogin() {
-    login({ document, password });
+  async function handleLogin() {
+    login({ document, password }).catch((err) => {
+      setWrongPassword(true);
+      return;
+    });
     setDocument("");
     setPassword("");
   }
@@ -58,6 +62,9 @@ export default function Login() {
           }}
         />
         <div>
+          {wrongPassword && (
+            <div className="text-red-700 text-center mb-2 show">CPF ou Senha incorretos</div>
+          )}
           <button className="btn cursor-pointer w-80" onClick={handleLogin}>
             Login
           </button>

@@ -1,6 +1,5 @@
 import express from "express";
 import http from "http";
-import mongoose from "mongoose";
 import passport from "passport";
 import * as dotenv from "dotenv";
 import cors from "cors";
