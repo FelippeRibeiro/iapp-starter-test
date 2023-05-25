@@ -3,6 +3,7 @@ import http from "http";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
 import { User } from "../models/User";
+import { Conversation } from "../models/Conversation";
 
 type IConnections = {
   socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
@@ -25,15 +26,45 @@ export function initializeSocket(server: http.Server) {
       );
     });
 
-    client.on("message", (message: { from: string; to: string; message: string }) => {
+    client.on("message", async (message: { from: string; to: string; message: string }) => {
+      if (message.from.length < 1 || message.to.length < 1 || message.message.length < 1) return;
       console.log(
         `Enivando mensagem direta de: ${message.from} para ${message.to} mensagem: ${message.message}`
       );
+      let conversa =
+        (await Conversation.findOne({ authors: [message.from, message.to] })) ||
+        (await Conversation.findOne({ authors: [message.to, message.from] }));
+
+      if (!conversa) {
+        conversa = await Conversation.create({
+          authors: [message.from, message.to],
+          messages: [],
+        });
+      }
+
+      conversa.messages.push({
+        author: message.from,
+        message: message.message,
+        time: Date.now().toString(),
+      });
+
       connections.forEach((c) => {
         if ((c.socket.handshake.query.name || c.socket.id) === message.to) {
           c.socket.emit("direct", { from: message.from, message: message.message });
         }
       });
+      await conversa.save();
+    });
+
+    client.on("history", async (data: { author1: string; author2: string }) => {
+      console.log("Getting history for", data.author1, data.author2);
+
+      if (data.author1.length < 1 || data.author2.length < 1) return;
+      let conversa =
+        (await Conversation.findOne({ authors: [data.author1, data.author2] })) ||
+        (await Conversation.findOne({ authors: [data.author2, data.author1] }));
+      if (!conversa) return;
+      client.emit("resultHistory", conversa.messages);
     });
 
     ///

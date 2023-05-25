@@ -16,6 +16,7 @@ export default function PrivateChat({
 }) {
   const [input_value, setInputValue] = useState("");
   const [messages, setMessages] = useState<React.ReactNode[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   function listenMessages() {
     socket.on("direct", (data) => {
@@ -28,9 +29,26 @@ export default function PrivateChat({
       ]);
     });
   }
-
+  function getHistory() {
+    socket.on("resultHistory", (data: any) => {
+      if (!loaded) {
+        const HistoryMessages = data.map((element: any) => {
+          return (
+            <Bubble
+              key={element.message}
+              message={element.message}
+              type={element.author === me ? "send" : "recived"}
+            />
+          );
+        });
+        setMessages([...messages, ...HistoryMessages]);
+        setLoaded(true);
+      }
+    });
+  }
   useEffect(() => {
     listenMessages();
+    getHistory();
   });
 
   function sendMessage() {
@@ -44,7 +62,10 @@ export default function PrivateChat({
       <h1 className="text-center m-auto">{name}</h1>
       <div
         className="border h-5/6 overflow-y-scroll p-5 flex flex-col justify-items-start"
-        id="Menssagens"
+        id="Mensagens"
+        onAnimationEnd={(e) => {
+          e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
+        }}
       >
         {messages.map((message, index) => {
           return (

@@ -63,6 +63,7 @@ export default function Chat() {
                   <div
                     className="mt-2 border-b hover:border-green-400"
                     onClick={(e) => {
+                      socket.emit("history", { author1: el, author2: user.name });
                       setChat(<PrivateChat name={el} key={el} me={user.name} socket={socket} />);
                     }}
                     key={i}
