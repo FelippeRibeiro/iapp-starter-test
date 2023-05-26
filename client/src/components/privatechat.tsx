@@ -51,7 +51,7 @@ export default function PrivateChat({
     setInputValue("");
   }
   return (
-    <div className="h-[95%] w-[60%] flex flex-col border border-gray-800 rounded-lg ">
+    <div className="h-[95%] w-[60%] flex flex-col border border-gray-800 rounded-lg shadow-lg shadow-black">
       <h1 className="text-center m-auto w-full border-b border-black p-2 shadow-xl">{name}</h1>
       <div
         className="rounded-md h-5/6 overflow-y-scroll p-5 flex flex-col justify-items-start"
