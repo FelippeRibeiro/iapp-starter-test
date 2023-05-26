@@ -21,11 +21,14 @@ export default function Chat() {
 
   useEffect(() => {
     valide().then((res) => {
-      if (!res) router.push("/auth/login");
+      if (!res) {
+        socket.disconnect();
+        router.push("/auth/login");
+      }
+      if (user.name.length > 0) {
+        initSocket(user.name);
+      }
     });
-    if (user.name.length > 0) {
-      initSocket(user.name);
-    }
   }, [user.name, valide, router]);
 
   async function initSocket(name: string) {
@@ -39,7 +42,6 @@ export default function Chat() {
       setStatus(false);
     });
     socket.on("refreshConnection", (connections) => {
-      console.log(connections);
       setConnected(connections);
     });
   }
@@ -47,9 +49,21 @@ export default function Chat() {
   return (
     <div className="flex h-full">
       <div className="border border-white w-1/4 flex flex-col p-2 overflow-y-scroll">
-        <div className="text-green-400 border-b">
-          Status: {status === true ? "Conectado" : "Desconectado"} <br />
-          <div className="btn btn-xs bg-red-600 mb-2 text-black" onClick={logout}>
+        <div className="text-white border-b">
+          Status:{" "}
+          {status === true ? (
+            <span className="text-green-500">Conectado</span>
+          ) : (
+            <span className="text-red-500">Desconectado</span>
+          )}{" "}
+          <br />
+          <div
+            className="btn btn-xs bg-red-600 mb-2 text-black"
+            onClick={() => {
+              logout();
+              socket.disconnect();
+            }}
+          >
             Logout
           </div>
         </div>
@@ -63,7 +77,6 @@ export default function Chat() {
                   <div
                     className="mt-2 border-b hover:border-green-400"
                     onClick={(e) => {
-                      socket.emit("history", { author1: el, author2: user.name });
                       setChat(<PrivateChat name={el} key={el} me={user.name} socket={socket} />);
                     }}
                     key={i}

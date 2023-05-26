@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Bubble from "./bubble";
 import io, { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
+import { v4 as uuid } from "uuid";
 
 /* eslint-disable react/no-unescaped-entities */
 const messageHandles: any[] = [];
@@ -18,43 +19,35 @@ export default function PrivateChat({
   const [messages, setMessages] = useState<React.ReactNode[]>([]);
   const [loaded, setLoaded] = useState(false);
 
-  function listenMessages() {
+  useEffect(() => {
+    socket.emit("history", { author1: me, author2: name });
     socket.on("direct", (data) => {
-      console.log(data);
-
       if (data.from != name) return;
-      setMessages([
-        ...messages,
-        <Bubble key={data.message} message={data.message} type="recived" />,
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        <Bubble key={uuid()} message={data.message} type="recived" />,
       ]);
     });
-  }
-  function getHistory() {
+
     socket.on("resultHistory", (data: any) => {
-      if (!loaded) {
-        const HistoryMessages = data.map((element: any) => {
-          return (
-            <Bubble
-              key={element.message}
-              message={element.message}
-              type={element.author === me ? "send" : "recived"}
-            />
-          );
-        });
-        setMessages([...messages, ...HistoryMessages]);
-        setLoaded(true);
-      }
+      const HistoryMessages = data.map((element: any) => {
+        return (
+          <Bubble
+            key={uuid()}
+            message={element.message}
+            type={element.author === me ? "send" : "recived"}
+          />
+        );
+      });
+
+      setMessages([...HistoryMessages]);
+      setLoaded(true);
     });
-  }
-  useEffect(() => {
-    listenMessages();
-    getHistory();
-  });
+  }, [me, name, socket]);
 
   function sendMessage() {
-    setMessages([...messages, input_value]);
     socket.emit("message", { from: me, to: name, message: input_value });
-    setMessages([...messages, <Bubble message={input_value} type="send" key={input_value} />]);
+    setMessages([...messages, <Bubble message={input_value} type="send" key={uuid()} />]);
     setInputValue("");
   }
   return (
@@ -86,13 +79,18 @@ export default function PrivateChat({
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                sendMessage();
+                input_value.length && sendMessage();
               }
             }}
           />
         </div>
         <div className="col-span-1">
-          <button className="btn w-full font-black " onClick={sendMessage}>
+          <button
+            className="btn w-full font-black "
+            onClick={() => {
+              input_value.length && sendMessage();
+            }}
+          >
             Enviar
           </button>
         </div>
