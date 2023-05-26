@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 export default function Bubble({ type, message }: { type: "send" | "recived"; message: string }) {
   return (
-    <div className={`${type === "send" ? "send" : "recived"}`}>
+    <div className={`msg ${type === "send" ? "send bg-[#07847E]" : "recived bg-[#633BBC]"}`}>
       <cite>
-        <p className="text-gray-500">{type === "send" ? "You:" : "Other:"}</p>
+        <p className="text-black">{type === "send" ? "You:" : "Other:"}</p>
       </cite>
       {message}
     </div>

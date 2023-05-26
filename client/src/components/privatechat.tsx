@@ -51,26 +51,23 @@ export default function PrivateChat({
     setInputValue("");
   }
   return (
-    <div className="h-[95%] w-[60%] flex flex-col">
-      <h1 className="text-center m-auto">{name}</h1>
+    <div className="h-[95%] w-[60%] flex flex-col border border-gray-800 rounded-lg ">
+      <h1 className="text-center m-auto w-full border-b border-black p-2 shadow-xl">{name}</h1>
       <div
-        className="border h-5/6 overflow-y-scroll p-5 flex flex-col justify-items-start"
+        className="rounded-md h-5/6 overflow-y-scroll p-5 flex flex-col justify-items-start"
         id="Mensagens"
         onAnimationEnd={(e) => {
           e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
         }}
       >
         {messages.map((message, index) => {
-          return (
-            <div className="msg" key={index}>
-              {message}
-            </div>
-          );
+          return <div key={index}>{message}</div>;
         })}
       </div>
       <div className="m-2 grid grid-cols-5 gap-2">
         <div className="col-span-4">
           <input
+            placeholder="Insira a sua mensagem..."
             type="text"
             className="input w-full"
             value={input_value}

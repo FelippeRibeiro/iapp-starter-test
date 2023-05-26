@@ -18,7 +18,7 @@ export default function Login() {
   return (
     <div className="flex flex-col items-center w-screen h-screen gap-3">
       <h1 className="font-mono mt-8">IAPP ChatApp Register</h1>
-      <div className="flex flex-col gap-3 m-auto border p-10 rounded-md ">
+      <div className="flex flex-col gap-3 m-auto p-10 rounded-md shadow-xl shadow-black">
         <label htmlFor="">Nome</label>
         <input
           type="text"

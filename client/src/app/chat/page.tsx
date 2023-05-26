@@ -52,7 +52,7 @@ export default function Chat() {
 
   return (
     <div className="flex h-full">
-      <div className="border border-white w-1/4 flex flex-col p-2 overflow-y-scroll">
+      <div className="border border-purple-950 w-1/4 flex flex-col p-2 overflow-y-scroll">
         <div className="text-white border-b">
           Status:{" "}
           {status === true ? (
@@ -92,7 +92,7 @@ export default function Chat() {
             })}
         </div>
       </div>
-      <div className="border border-white w-full h-full flex flex-col justify-center items-center">
+      <div className="border border-purple-950 shadow-2xl w-full h-full flex flex-col justify-center items-center">
         {chat || <NotFound height={1000} width={1000} />}
       </div>
     </div>

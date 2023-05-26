@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-  background: #222;
-  color: white;
+  background: #1a1924;
+  color: #e1e1e6;
   height: 100vh;
 }
 
 body div::-webkit-scrollbar {
-  width: 8px;
+  width: 3px;
 }
 
 body div::-webkit-scrollbar-track {
@@ -23,25 +23,29 @@ body div::-webkit-scrollbar-thumb {
 
 .send {
   margin: 2px;
-  text-align: end;
+  /* text-align: end; */
+  float: right;
 }
 
 .received {
   margin: 2px;
-  text-align: start;
+  /* text-align: start; */
+  float: left;
 }
 
 .msg {
-  padding: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.699);
+  height: auto;
+  max-width: 90%;
+  width: fit-content;
+  word-break: break-all;
+  padding: 10px 30px;
   margin: 15px;
   font-size: large;
   font-family: "Times New Roman", Times, serif;
-  background-color: rgba(255, 255, 255, 0.089);
+  /* background-color: #4c2c91; */
   border-radius: 10px;
   animation-name: show;
   animation-duration: 0.2s;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
 .show {
