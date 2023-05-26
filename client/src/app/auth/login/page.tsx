@@ -9,14 +9,14 @@ export default function Login() {
   const [document, setDocument] = useState("");
   const [password, setPassword] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);
-  const { login, valide } = useAuth();
+  const { login, validate } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    valide().then((status) => {
+    validate().then((status) => {
       if (status) router.push("/chat");
     });
-  }, [router, valide]);
+  }, [router, validate]);
 
   async function handleLogin() {
     login({ document, password }).catch((err) => {

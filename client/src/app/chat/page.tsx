@@ -16,11 +16,11 @@ export default function Chat() {
   const [status, setStatus] = useState<boolean>(false);
   const [connected, setConnected] = useState<string[]>([]);
   const [chat, setChat] = useState<React.ReactNode | undefined>();
-  const { user, logout, valide } = useAuth();
+  const { user, logout, validate } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    valide().then((res) => {
+    validate().then((res) => {
       if (!res) {
         try {
           socket.disconnect();
@@ -33,7 +33,7 @@ export default function Chat() {
         initSocket(user.name);
       }
     });
-  }, [user.name, valide, router]);
+  }, [user.name, validate, router]);
 
   async function initSocket(name: string) {
     socket = io(`http://localhost:3000?name=${name}`, {

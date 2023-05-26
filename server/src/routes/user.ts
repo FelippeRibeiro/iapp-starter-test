@@ -7,6 +7,6 @@ const router = express.Router();
 
 // router.get("/", authenticateToken, getUser);
 
-router.get("/valide", valideUser);
+router.get("/validate", valideUser);
 
 export default router;

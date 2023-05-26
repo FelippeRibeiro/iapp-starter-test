@@ -20,8 +20,8 @@ export const valideUser = async (req: Request, res: Response, next: NextFunction
   try {
     const token = req.headers.authorization;
     if (!token) return res.status(401).json({ message: "Unauthorized" });
-    const valide = jwt.verify(token.split(" ")[1], "8255") as JwtPayload;
-    res.status(200).json({ name: valide.name });
+    const validate = jwt.verify(token.split(" ")[1], "8255") as JwtPayload;
+    res.status(200).json({ name: validate.name });
   } catch (error) {
     res.status(401).json({ message: "Unauthorized" });
   }
