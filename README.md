@@ -1,4 +1,4 @@
-# IAPP Starter Test
+# IAPP Starter Test [PT-BR]
 
 Contruir uma aplicação do tipo chat em tempo real, contendo back-end e front-end. No front-end desenvolver uma tela de login e uma tela interna para o chat
 
@@ -76,7 +76,8 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 ```
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDcwMjY2YTFmYzMyYTVjODU0YTRhNWUiLCJuYW1lI
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+    eyJfaWQiOiI2NDcwMjY2YTFmYzMyYTVjODU0YTRhNWUiLCJuYW1lI
     MDcxNDY2LCJleHAiOjE2ODUwNzUwNjZ9.r1o7QLaUI6sD2ZOZ0HO
     ",
     "user": {
@@ -106,7 +107,8 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 ```
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDZkNGFhMjBkODAyOTJhYjk4NzYwMjIiLCJu
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+    eyJfaWQiOiI2NDZkNGFhMjBkODAyOTJhYjk4NzYwMjIiLCJu
    33sJ03-eqhBjThQKcrPaASs9XURYExogSaP6R03T4",
     "user": {
         "name": "Felipe Ribeiro"
