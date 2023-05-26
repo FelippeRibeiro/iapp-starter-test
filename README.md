@@ -36,7 +36,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 **Importante iniciar o server antes de iniciar client**
 
-**Certifique-se de que não há nenhum serviso rodando na porta 3000 e 3001**
+**Certifique-se de que não há nenhum serviço rodando na porta 3000 e 3001**
 
 No diretorio raiz do projeto entre na pasta /server e instale.
 
