@@ -15,6 +15,17 @@ export function initializeSocket(server: http.Server) {
 
   io.on("connection", (client) => {
     console.log("New Connection!", client.id);
+    if (!client.handshake.query.name) {
+      client.disconnect();
+      return;
+    }
+    connections.forEach((c) => {
+      if (c.socket.handshake.query.name === client.handshake.query.name) {
+        connections = connections.filter(
+          (c) => c.socket.handshake.query.name !== client.handshake.query.name
+        );
+      }
+    });
     connections.push({ messags: [], socket: client });
 
     client.on("disconnect", () => {
@@ -27,10 +38,9 @@ export function initializeSocket(server: http.Server) {
     });
 
     client.on("message", async (message: { from: string; to: string; message: string }) => {
+      if (!message.from || !message.to || !message.message) return;
       if (message.from.length < 1 || message.to.length < 1 || message.message.length < 1) return;
-      console.log(
-        `Enivando mensagem direta de: ${message.from} para ${message.to} mensagem: ${message.message}`
-      );
+
       let conversa =
         (await Conversation.findOne({ authors: [message.from, message.to] })) ||
         (await Conversation.findOne({ authors: [message.to, message.from] }));
@@ -57,7 +67,7 @@ export function initializeSocket(server: http.Server) {
     });
 
     client.on("history", async (data: { author1: string; author2: string }) => {
-      console.log("Getting history for", data.author1, data.author2);
+      if (!data.author1 || !data.author2) return;
 
       if (data.author1.length < 1 || data.author2.length < 1) return;
       let conversa =

@@ -72,17 +72,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const valide = async () => {
-    const token = Cookies.get("token");
-    if (!token) return false;
-    const response = await fetch("http://localhost:3000/api/user/valide", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.status == 200) return true;
-    else {
+    try {
+      const token = Cookies.get("token");
+      if (!token) return false;
+      const response = await fetch("http://localhost:3000/api/user/valide", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status == 200) return true;
+      else {
+        Cookies.remove("token");
+        return false;
+      }
+    } catch (error) {
       Cookies.remove("token");
       return false;
     }
