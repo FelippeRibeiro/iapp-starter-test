@@ -12,7 +12,7 @@ Contruir uma aplicação do tipo chat em tempo real, contendo back-end e front-e
 
 ## Stack utilizada
 
-**Front-end:** Next.js, TailwindCSS, Socket.io Client.
+**Front-end:** Next.js, TailwindCSS, Socket.io Client, DaisyUi.
 
 **Back-end:** TypeScript, Node, Express, Socket.io, Mongoose, JWT, Bcrypt, Passport.
 
@@ -36,12 +36,13 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 **Importante iniciar o server antes de iniciar client**
 
+**Certifique-se de que não há nenhum serviso rodando na porta 3000 e 3001**
+
 No diretorio raiz do projeto entre na pasta /server e instale.
 
 ```bash
   cd server
   npm install
-  npm run build
   npm start
 ```
 
@@ -50,7 +51,6 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 ```bash
   cd client
   npm install
-  npm run build
   npm start
 ```
 
