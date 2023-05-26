@@ -16,7 +16,7 @@ export default function Login() {
     valide().then((status) => {
       if (status) router.push("/chat");
     });
-  });
+  }, [router, valide]);
 
   async function handleLogin() {
     login({ document, password }).catch((err) => {

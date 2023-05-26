@@ -22,7 +22,11 @@ export default function Chat() {
   useEffect(() => {
     valide().then((res) => {
       if (!res) {
-        socket.disconnect();
+        try {
+          socket.disconnect();
+        } catch (error) {
+          console.error(error);
+        }
         router.push("/auth/login");
       }
       if (user.name.length > 0) {
