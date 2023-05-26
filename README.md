@@ -58,7 +58,7 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 #### Cadastrar
 
-##### Cadastrar um usuario no banco de dados
+##### Cadastrar um usuários no banco de dados
 
 ```http
   POST /api/auth/singup
@@ -66,19 +66,17 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 ##### Request Data
 
-| Parâmetro  | Tipo     | Descrição        |
-| :--------- | :------- | :--------------- |
-| `name`     | `string` | Nome do usuario  |
-| `document` | `string` | CPF do usuario   |
-| `password` | `string` | Senha do usuario |
+| Parâmetro  | Tipo     | Descrição         |
+| :--------- | :------- | :---------------- |
+| `name`     | `string` | Nome do usuários  |
+| `document` | `string` | CPF do usuários   |
+| `password` | `string` | Senha do usuários |
 
 ##### **Response Data example**
 
-```
+```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-    eyJfaWQiOiI2NDcwMjY2YTFmYzMyYTVjODU0YTRhNWUiLCJuYW1lI
-    MDcxNDY2LCJleHAiOjE2ODUwNzUwNjZ9.r1o7QLaUI6sD2ZOZ0HO
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJfaWQiOiI2NDcwMjY2YTFmYzMyYTVjODU0YTUiLCJuYW1lIMDcxNDY2LCJleHAiOjE2ODUwNzUwNjZ9.r1o7QLaUI6sD2ZOZ0HO
     ",
     "user": {
         "name": "Felipe Ribeiro"
@@ -90,7 +88,7 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 #### Login
 
-##### Fazer login com um usuario cadastrado
+##### Fazer login com um usuários cadastrado
 
 ```http
   POST /api/auth/login
@@ -98,21 +96,19 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 ##### Request Data
 
-| Parâmetro  | Tipo     | Descrição        |
-| :--------- | :------- | :--------------- |
-| `document` | `string` | CPF do usuario   |
-| `password` | `string` | Senha do usuario |
+| Parâmetro  | Tipo     | Descrição         |
+| :--------- | :------- | :---------------- |
+| `document` | `string` | CPF do usuários   |
+| `password` | `string` | Senha do usuários |
 
 ##### **Response Data example**
 
-```
+```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-    eyJfaWQiOiI2NDZkNGFhMjBkODAyOTJhYjk4NzYwMjIiLCJu
-   33sJ03-eqhBjThQKcrPaASs9XURYExogSaP6R03T4",
-    "user": {
-        "name": "Felipe Ribeiro"
-    }
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9yJfaWQiOiI2NDZkNGFhMjBkODAyOTJhY4NzYwMjIiLCJu33sJ03-eqhBjThQKcrPaASs9XURYExogSaP6R03T4",
+  "user": {
+    "name": "Felipe Ribeiro"
+  }
 }
 ```
 
@@ -120,17 +116,17 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 #### Valide
 
-##### Validar sessão de usuario
+##### Validar sessão de usuários
 
 ```http
-  GET /api/user/valide
+  GET /api/user/validate
 ```
 
 ##### Header
 
-| Key             | Value          | Descrição                                                       |
-| :-------------- | :------------- | :-------------------------------------------------------------- |
-| `Authorization` | Bearer `Token` | Token do usuario fornecido ao fazer se cadastrar ou fazer login |
+| Key             | Value          | Descrição                                                        |
+| :-------------- | :------------- | :--------------------------------------------------------------- |
+| `Authorization` | Bearer `Token` | Token do usuários fornecido ao fazer se cadastrar ou fazer login |
 
 ##### **Response Data example**
 
@@ -148,11 +144,9 @@ Apos instalar e iniciar o server, **em outro terminal** entre na pasta /client e
 
 Email: `felipper43@gmail.com`
 
-Whatsapp `557193277415`
-
 ## Implementações futuras
 
 - [x] Logout
 - [ ] Sistema de notificações
-- [ ] Chat em grupo com todos usuarios logados
-- [ ] Alterar de dados da contas
+- [ ] Chat em grupo com todos usuárioss logados
+- [ ] Alteração dos dados de usuárioss
