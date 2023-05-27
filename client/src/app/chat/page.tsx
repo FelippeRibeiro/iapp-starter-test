@@ -92,7 +92,7 @@ export default function Chat() {
             })}
         </div>
       </div>
-      <div className="border border-purple-950 shadow-2xl w-full h-full flex flex-col justify-center items-center">
+      <div className="border-l  shadow-2xl w-full h-full flex flex-col justify-center items-center">
         {chat || <NotFound height={1000} width={1000} />}
       </div>
     </div>

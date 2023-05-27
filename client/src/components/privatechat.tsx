@@ -25,7 +25,7 @@ export default function PrivateChat({
       if (data.from != name) return;
       setMessages((prevMessages) => [
         ...prevMessages,
-        <Bubble key={uuid()} message={data.message} type="recived" />,
+        <Bubble key={uuid()} message={data.message} type="recived" name={data.from} />,
       ]);
     });
 
@@ -35,6 +35,7 @@ export default function PrivateChat({
           <Bubble
             key={uuid()}
             message={element.message}
+            name={element.author}
             type={element.author === me ? "send" : "recived"}
           />
         );
@@ -47,7 +48,7 @@ export default function PrivateChat({
 
   function sendMessage() {
     socket.emit("message", { from: me, to: name, message: input_value });
-    setMessages([...messages, <Bubble message={input_value} type="send" key={uuid()} />]);
+    setMessages([...messages, <Bubble message={input_value} name={me} type="send" key={uuid()} />]);
     setInputValue("");
   }
   return (
