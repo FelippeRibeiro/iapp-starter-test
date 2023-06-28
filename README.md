@@ -1,5 +1,7 @@
 # IAPP Starter Test [PT-BR]
 
+Teste pratico desenvolvido para vaga de estagio de desenvolvedor iniciante.
+
 Contruir uma aplicação do tipo chat em tempo real, contendo back-end e front-end. No front-end desenvolver uma tela de login e uma tela interna para o chat
 
 [![wakatime](https://wakatime.com/badge/user/2f348d83-96c0-482b-ae6c-a687ad5fa937/project/2ce39e8a-228a-48e9-8304-8223482c9b7a.svg)](https://wakatime.com/badge/user/2f348d83-96c0-482b-ae6c-a687ad5fa937/project/2ce39e8a-228a-48e9-8304-8223482c9b7a)
