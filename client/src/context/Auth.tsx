@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const login = async (user: IUserLogin) => {
-    const response = await fetch("http://localhost:3000/api/auth/login", {
+    const response = await fetch("http://18.228.165.225:3000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signup = async (user: ICreateUser) => {
-    const response = await fetch("http://localhost:3000/api/auth/signup", {
+    const response = await fetch("http://18.228.165.225:3000/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const token = Cookies.get("token");
       if (!token) return false;
-      const response = await fetch("http://localhost:3000/api/user/validate", {
+      const response = await fetch("http://18.228.165.225:3000/api/user/validate", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -36,7 +36,7 @@ export default function Chat() {
   }, [user.name, validate, router]);
 
   async function initSocket(name: string) {
-    socket = io(`http://localhost:3000?name=${name}`, {
+    socket = io(`http://18.228.165.225:3000?name=${name}`, {
       transports: ["websocket"],
     });
     socket.on("connect", () => {
